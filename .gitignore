@@ -345,4 +345,4 @@ healthchecksdb
 .ionide/
 
 # Project temporary files
-Input/
+Input/input*.txt
