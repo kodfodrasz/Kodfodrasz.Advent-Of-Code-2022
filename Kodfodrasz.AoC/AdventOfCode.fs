@@ -58,8 +58,11 @@ and Input =
   // fsharplint:disable-next-line MemberNames
   static member getInput (options: Options) (puzzle: Puzzle) =
     try
-      Directory.CreateDirectory options.DataDirectory
-      |> ignore
+      try
+        Directory.CreateDirectory options.DataDirectory
+        |> ignore
+      with
+      | _ -> failwith $"Could not create puzzle input cache directory. Check the directory {options.DataDirectory}. You can change its value by settings AOC_DATA_DIR environment variable."
 
       let inputPath =
         Path.Join(options.DataDirectory, $"input-{puzzle.Year}-{puzzle.Day}.txt")
@@ -75,9 +78,12 @@ and Input =
             $"https://adventofcode.com/{puzzle.Year}/day/{puzzle.Day}/input"
 
           let response =
-            client.GetStringAsync(url)
-            |> Async.AwaitTask
-            |> Async.RunSynchronously
+            try
+              client.GetStringAsync(url)
+              |> Async.AwaitTask
+              |> Async.RunSynchronously
+            with
+            | _ -> failwith $"Could not download puzzle input. Check the session cookie in AOC_SESSION_COOKIE environment variable."
 
           File.WriteAllText(inputPath, response)
 
