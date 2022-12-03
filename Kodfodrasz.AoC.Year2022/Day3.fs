@@ -60,17 +60,27 @@ let answer1 rucksacks  =
   |> Ok
 
 
-//let answer2 numbers =
-//  numbers
-//  |> Seq.map (fun (opp, result) -> 
-//    let outcome = ReparseSecondColumn result
-//    let me = DeduceBet opp outcome
-//    (BetValue me) + (OutcomeValue outcome))
-//  |> Seq.sum
-//  |> Ok
+let answer2 rucksacks =
+  rucksacks
+  |> Seq.chunkBySize 3
+  |> Seq.map (fun (grp :Rucksack array) -> 
+      let ru r =
+        Set.union (Set.ofList r.FirstCompartment) (Set.ofList r.SecondCompartment)
 
+      let first = ru grp[0]
+      let second = ru grp[1]
+      let third = ru grp[2]
+
+      Set.intersectMany [ first; second; third ]
+      |> Set.toSeq
+      |> Seq.exactlyOne
+      |> ItemValue
+    )
+  |> Seq.sum
+  |> Ok
+  
 type Solver() =
   inherit SolverBase("Rucksack Reorganization")
   with
     override this.Solve input =
-      this.DoSolve parseInput [ answer1; (*answer2*) ] input
+      this.DoSolve parseInput [ answer1; answer2 ] input

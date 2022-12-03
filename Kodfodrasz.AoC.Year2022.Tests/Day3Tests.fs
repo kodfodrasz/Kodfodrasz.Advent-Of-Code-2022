@@ -65,11 +65,11 @@ let ``Item value`` (c, expected) =
     <@ let actual = ItemValue c
        actual = expected @>
 
-//[<Fact>]
-//let ``Answer 2 for example input`` () =
-//  let input = parseInput exampleInput
+[<Fact>]
+let ``Answer 2 for example input`` () =
+  let input = parseInput exampleInput
 
-//  test
-//    <@ let actual = Result.bind answer2 input
-//       let expected: Result<int, string> = Ok 12
-//       actual = expected @>
+  test
+    <@ let actual = Result.bind answer2 input
+       let expected: Result<int, string> = Ok 70
+       actual = expected @>
