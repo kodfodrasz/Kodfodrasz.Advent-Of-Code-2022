@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30717.126
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Kodfodrasz.AoC.Cli", "Kodfodrasz.AoC.Cli\Kodfodrasz.AoC.Cli.fsproj", "{2CEFABA5-2955-47CE-90D5-AA133F19AFAE}"
 EndProject
@@ -11,7 +11,12 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Kodfodrasz.AoC.Year2022", "
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Kodfodrasz.AoC.Year2022.Tests", "Kodfodrasz.AoC.Year2022.Tests\Kodfodrasz.AoC.Year2022.Tests.fsproj", "{A689D855-985C-4A38-A93C-2B362EDE0267}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Kodfodrasz.AoC.Tests", "Kodfodrasz.AoC.Tests\Kodfodrasz.AoC.Tests.fsproj", "{503939FB-A0A4-49B5-9119-C0C25E65BEF9}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Kodfodrasz.AoC.Tests", "Kodfodrasz.AoC.Tests\Kodfodrasz.AoC.Tests.fsproj", "{503939FB-A0A4-49B5-9119-C0C25E65BEF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{72164AF7-304D-4A90-BBE2-73D6973AF377}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

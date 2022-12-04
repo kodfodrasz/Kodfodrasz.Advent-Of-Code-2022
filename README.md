@@ -35,6 +35,10 @@ There are lots of stuff missing from the library used to solve the puzzles.
 
 ### Missing algorithms from the library
 
+#### Handy comparision combinators
+
+ - Between (inclusive, exclusive, upper/lower inclusive)
+
 #### String operations
 
 Edit Distances:

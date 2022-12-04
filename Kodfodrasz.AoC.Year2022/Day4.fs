@@ -47,28 +47,21 @@ let answer1 sectors  =
   |> Seq.sum
   |> Ok
 
+let between (s: Sector) x =
+  s.From <= x && x <= s.To
 
-// let answer2 rucksacks =
-//   rucksacks
-//   |> Seq.chunkBySize 3
-//   |> Seq.map (fun (grp :Rucksack array) -> 
-//       let ru r =
-//         Set.union (Set.ofList r.FirstCompartment) (Set.ofList r.SecondCompartment)
-
-//       let first = ru grp[0]
-//       let second = ru grp[1]
-//       let third = ru grp[2]
-
-//       Set.intersectMany [ first; second; third ]
-//       |> Set.toSeq
-//       |> Seq.exactlyOne
-//       |> ItemValue
-//     )
-//   |> Seq.sum
-//   |> Ok
+let answer2 sectors  =
+  sectors
+  |> Seq.map (fun (r :SectorAssignments) -> 
+      match r with
+      | r when between r.First r.Second.From || between r.First r.Second.To -> 1
+      | r when between r.Second r.First.From || between r.Second r.First.To -> 1
+      | _ -> 0)
+  |> Seq.sum
+  |> Ok
   
 type Solver() =
   inherit SolverBase("Camp Cleanup")
   with
     override this.Solve input =
-      this.DoSolve parseInput [ answer1; (* answer2 *) ] input
+      this.DoSolve parseInput [ answer1;  answer2  ] input
