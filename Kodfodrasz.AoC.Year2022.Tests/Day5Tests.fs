@@ -5,7 +5,26 @@ open Swensen.Unquote.Assertions
 
 open Kodfodrasz.AoC.Year2022
 open Kodfodrasz.AoC.Year2022.Day5
+open System.Collections.Generic
 
+
+[<Fact>]
+let ``RotateCCW works as expected`` () =
+  let input = "abc\ndef\nghi"
+  let expected = "cfi\nbeh\nadg"
+
+  test
+    <@ let actual = rotateCCW input
+      actual = expected @>
+
+[<Fact>]
+let ``RotateCW works as expected`` () =
+  let input = "abc\ndef\nghi"
+  let expected = "gda\nheb\nifc"
+
+  test
+    <@ let actual = rotateCW input
+      actual = expected @>
 
 let exampleInput = """
     [D]    
@@ -19,27 +38,26 @@ move 2 from 2 to 1
 move 1 from 1 to 2
 """
 
-// [<Fact>]
-// let ``Parsing example input`` () =
-//   let expected: Result<Rucksack list, string> 
-//     = Ok [ 
-//         { FirstCompartment = (chrl "vJrwpWtwJgWr")
-//           SecondCompartment = (chrl "hcsFMMfFFhFp")};
-//         { FirstCompartment = (chrl "jqHRNqRjqzjGDLGL")
-//           SecondCompartment = (chrl "rsFMfFZSrLrFZsSL")};
-//         { FirstCompartment = (chrl "PmmdzqPrV")
-//           SecondCompartment = (chrl "vPwwTWBwg")};
-//         { FirstCompartment = (chrl "wMqvLMZHhHMvwLH")
-//           SecondCompartment = (chrl "jbvcjnnSBnvTQFn")};
-//         { FirstCompartment = (chrl "ttgJtRGJ")
-//           SecondCompartment = (chrl "QctTZtZT")};
-//         { FirstCompartment = (chrl "CrZsJsPPZsGz")
-//           SecondCompartment = (chrl "wwsLwLmpwMDw")};
-//     ]
+[<Fact>]
+let ``Parsing example input (Stacks)`` () =
+  let expected = [|
+    new Stack<char>([ 'Z'; 'N' ]);
+    new Stack<char>([ 'M'; 'C'; 'D' ]);
+    new Stack<char>([ 'P' ]);
+  |]
 
-//   test
-//     <@ let actual = parseInput exampleInput
-//        actual = expected @>
+  let get = (Result.toOption >> Option.get)
+  
+  test
+    <@ 
+      let actualMaybe = parseInput exampleInput
+      let actual = get actualMaybe
+
+      actual.Stacks.Length = 3
+      Seq.toList actual.Stacks[0] = Seq.toList expected[0]
+      Seq.toList actual.Stacks[1] = Seq.toList expected[1]
+      Seq.toList actual.Stacks[2] = Seq.toList expected[2]
+    @>
 
 // [<Fact>]
 // let ``Answer 1 for example input`` () =

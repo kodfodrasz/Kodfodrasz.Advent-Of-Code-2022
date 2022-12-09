@@ -25,3 +25,20 @@ let batchBySeparator separator (sequence: seq<_>) =
     yield List.ofSeq l
   }
   |> Seq.filter (List.isEmpty >> not)
+
+let batchByPredicate predicate (sequence: seq<_>) =
+  seq {
+    let e = sequence.GetEnumerator()
+
+    let mutable l = System.Collections.Generic.List<_>()
+
+    while e.MoveNext() do
+      if predicate e.Current then
+        yield List.ofSeq l
+        l.Clear()
+      else
+        l.Add e.Current
+
+    yield List.ofSeq l
+  }
+  |> Seq.filter (List.isEmpty >> not)
