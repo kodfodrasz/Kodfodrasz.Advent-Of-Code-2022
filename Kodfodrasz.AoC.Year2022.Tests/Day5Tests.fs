@@ -40,11 +40,11 @@ move 1 from 1 to 2
 
 [<Fact>]
 let ``Parsing example input (Stacks)`` () =
-  let expected = [|
-    new Stack<char>([ 'Z'; 'N' ]);
-    new Stack<char>([ 'M'; 'C'; 'D' ]);
-    new Stack<char>([ 'P' ]);
-  |]
+  let expected = [
+    [ 'Z'; 'N' ];
+    [ 'M'; 'C'; 'D' ];
+    [ 'P' ];
+  ]
 
   let get = (Result.toOption >> Option.get)
   
@@ -53,20 +53,22 @@ let ``Parsing example input (Stacks)`` () =
       let actualMaybe = parseInput exampleInput
       let actual = get actualMaybe
 
-      actual.Stacks.Length = 3
-      Seq.toList actual.Stacks[0] = Seq.toList expected[0]
-      Seq.toList actual.Stacks[1] = Seq.toList expected[1]
-      Seq.toList actual.Stacks[2] = Seq.toList expected[2]
+      actual.Stacks = expected
+      //actual.Stacks.Length = 3
+      //Seq.toList actual.Stacks[0] = Seq.toList expected[0]
+      //Seq.toList actual.Stacks[1] = Seq.toList expected[1]
+      //Seq.toList actual.Stacks[2] = Seq.toList expected[2]
     @>
 
-// [<Fact>]
-// let ``Answer 1 for example input`` () =
-//   let input = parseInput exampleInput
+[<Fact>]
+let ``Answer 1 for example input`` () =
+  let input = parseInput exampleInput
 
-//   test
-//     <@ let actual = Result.bind answer1 input
-//        let expected: Result<int, string> = Ok 157
-//        actual = expected @>
+  test
+    <@ 
+      let actual = Result.bind answer1 input
+      let expected: Result<string, string> = Ok "CMZ"
+      actual = expected @>
 
 // [<Theory>]
 // [<InlineData('p', 16)>]
