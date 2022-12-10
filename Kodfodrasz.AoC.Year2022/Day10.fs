@@ -20,7 +20,7 @@ let answer2 input =
   Error "TODO"
   
 type Solver() =
-  inherit SolverBase("TODO")
+  inherit SolverBase("Cathode-Ray Tube")
   with
     override this.Solve input =
       this.DoSolve parseInput [ answer1;  answer2  ] input
