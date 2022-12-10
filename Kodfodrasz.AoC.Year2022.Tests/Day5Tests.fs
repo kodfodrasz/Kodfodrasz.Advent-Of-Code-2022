@@ -70,25 +70,13 @@ let ``Answer 1 for example input`` () =
       let expected: Result<string, string> = Ok "CMZ"
       actual = expected @>
 
-// [<Theory>]
-// [<InlineData('p', 16)>]
-// [<InlineData('L', 38)>]
-// [<InlineData('P', 42)>]
-// [<InlineData('v', 22)>]
-// [<InlineData('t', 20)>]
-// [<InlineData('s', 19)>]
-// let ``Item value`` (c, expected) =
-//   let input = parseInput exampleInput
 
-//   test
-//     <@ let actual = ItemValue c
-//        actual = expected @>
+[<Fact>]
+let ``Answer 2 for example input`` () =
+  let input = parseInput exampleInput
 
-// [<Fact>]
-// let ``Answer 2 for example input`` () =
-//   let input = parseInput exampleInput
-
-//   test
-//     <@ let actual = Result.bind answer2 input
-//        let expected: Result<int, string> = Ok 70
-//        actual = expected @>
+  test
+    <@ 
+      let actual = Result.bind answer2 input
+      let expected: Result<string, string> = Ok "MCD"
+      actual = expected @>

@@ -7,7 +7,9 @@ open System.Text.RegularExpressions
 
 type MoveCommand = {
   Count: int
+  // Columns are indexed from 1!
   From : int
+  // Columns are indexed from 1!
   To   : int
 }
 
@@ -118,8 +120,35 @@ let answer1 input =
   Ok top
 
 let answer2 input =
-  Error "TODO"
-  
+  // use 1-based array indexing to match the stack-indexes used in the problem
+  // this is supported conveniently only Array2D, not in 1-dimensional arrays, so it is used
+  let arr  = Array2D.createBased<Stack<char>> 0 1 1 (Seq.length input.Stacks) null
+
+  // load the data to the array in the form of stacks
+  input.Stacks
+  |> Seq.iteri (fun idx s -> arr[0,(idx+1)] <- Stack s)
+
+  input.Moves
+  |> Seq.iter (fun move ->
+    let pop = 
+      [1..move.Count]
+      |> Seq.map (fun _ -> arr[0,move.From].Pop())
+      |> Seq.rev
+      |> Seq.toList
+    
+    pop
+    |> Seq.iter arr[0,move.To].Push
+  )
+
+  let top = 
+    arr
+    |> Seq.cast<Stack<char>>
+    |> Seq.map (fun stack -> stack.Peek())
+    |> Seq.toArray
+    |> String
+
+  Ok top
+
 type Solver() =
   inherit SolverBase("Supply Stacks")
   with
